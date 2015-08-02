@@ -3,7 +3,6 @@
 
 #include<vector>
 #include<string>
-#include<pair>
 #include<iostream>
 #include "actors.h"
 using namespace std;
@@ -23,28 +22,36 @@ namespace textAdventure{
 		void addRoomEnemy(enemy& anEnemy);
 		void setRoomDesc(string description);
 		pair<int, int> currentPosition();
+		
+
+		
 	};
 	class gameMap{
 
 		//vector< vector<Room>> gameBoard;
-		Room gameBoard[4][4];
+		Room* gameBoard[2][2];
 		int currentRow = 0;
 		int currentColumn = 0;
-		
+
 		vector<pair<string, string>> roomVect;
 	public:
-		void addRoom(Room aRoom);
-		void getNearbyRooms(int row, int column);
+		gameMap(){}
+		void addRoom(Room* aRoom);
+		void getNearbyRooms(int row, int column, Room* aRoom);
 		pair<int, int> getCoordinates();
-		void enterRoom(Room aRoom);
+		void enterRoom(Room* aRoom);
 		void navigateLeft();
 		void navigateRight();
 		void navigateForward();
 		void navigateBackward();
 		void chooseUserDirection(string userInput);
+		void setCurrentPosition(int curRow, int curColumn);
+		Room* roomAtPosition(int row, int col);
+		//void setMapSize(int row, int column);
+		
 	};
 
 }
 
 
-#endif
+#endif	 
