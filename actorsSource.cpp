@@ -7,32 +7,46 @@ namespace textAdventure{
 	string enemy::getEnemyName(){
 		return enemyName;
 	}
-	void enemy::setLoserStrength(double loserStr){
-		enemyStrength = loserStr;
+	void enemy::setStrength(int strength){
+		enemyStrength = strength;
 	}
-	void enemy::setWinnerStrength(double battleRatio){
-		enemyStrength = battleRatio;
-	}
-	double enemy::getEnemyStrength(){
+	int enemy::getEnemyStrength(){
 		return enemyStrength;
 	}
-	
+	void enemy::decreaseHP(int healthLoss){
+		enemyStrength += healthLoss;
+	}
+	void enemy::setWeapon(weapon* aWeapon){
+		enemyWeapon = aWeapon;
+	}
+
 	mainActor::mainActor(const string& nName) : actorName(nName){}
-	string mainActor:: getActorName(){
+	string mainActor::getActorName(){
 		return actorName;
 	}
-	void mainActor::setLoserStrength(double loserStr){
-		battleRatio = loserStr;
+	void mainActor::setStrength(int str){
+		battleRatio = str;
 	}
-	void mainActor::setWinnerStrength(double battleRatio){
+	void mainActor::addHealthPoints(int str){
+		currentHP += str;
+	}
 
-	}
-	double mainActor::getActorStrength(){
+	int mainActor::getActorStrength(){
 		return battleRatio;
 	}
-	string mainActor::getActorName(){
-		//Returns Noble Name
-		return this->actorName;
+	void mainActor::changeHP(int healthChange){
+		currentHP += healthChange;
+	}
+	void mainActor::addWeapon(weapon* aWeapon){
+		inventory->pickUpWeapon(aWeapon);
+	}
+
+	void mainActor::addHealthPack(healthPack* hp){
+		inventory->pickUpHealth(hp);
+	}
+	void mainActor::displayInventory(){
+		inventory->displayWeapons();
+		inventory->displayhealthPacks();
 	}
 	void mainActor::battle(enemy& anEnemy){
 		//Simulates Battle 
@@ -47,25 +61,25 @@ namespace textAdventure{
 		else if (this->getActorStrength() > anEnemy.getEnemyStrength()){
 
 			battleRatio = (this->getActorStrength() - anEnemy.getEnemyStrength()) / this->getActorStrength();
-			anEnemy.setLoserStrength(0);
+			anEnemy.decreaseHP(0);
 			anEnemy.dead = true;
-			this->setWinnerStrength(battleRatio);
+			this->setStrength(battleRatio);
 
 			cout << this->getActorName() << " defeats " << anEnemy.getEnemyName() << endl;
 		}
 		else if (anEnemy.getEnemyStrength() > this->getActorStrength()){
 
 			battleRatio = (anEnemy.getEnemyStrength() - this->getActorStrength()) / anEnemy.getEnemyStrength();
-			this->setLoserStrength(0);
+			this->setStrength(0);
 			this->dead = true;
-			anEnemy.setWinnerStrength(battleRatio);
+			anEnemy.setStrength(battleRatio);
 
 			cout << anEnemy.getEnemyName() << " defeats " << this->getActorName() << endl;
 		}
 		else if (this->getActorStrength() == anEnemy.getEnemyStrength()){
 
-			this->setLoserStrength(0);
-			anEnemy.setLoserStrength(0);
+			this->setStrength(0);
+			anEnemy.setStrength(0);
 			this->dead = true;
 			anEnemy.dead = true;
 
