@@ -18,7 +18,7 @@ namespace textAdventure{
 	void Room::setRoomDesc(string description){
 		roomDescription = description;
 	}
-	void Room::addRoomEnemy(enemy& anEnemy){
+	void Room::addRoomEnemy(enemy* anEnemy){
 		roomEnemies.push_back(anEnemy);
 	}
 	pair<int, int> Room::currentPosition(){
@@ -26,7 +26,13 @@ namespace textAdventure{
 		return coordinates;
 	}
 
+	void gameMap::initializeMap(){
+		pair<int, int> position(0, 0);
+		lastRoom.push(position);
+		currentRow = 0;
+		currentColumn = 0;
 
+	}
 	void gameMap::addRoom(Room* aRoom){
 		int row = aRoom->currentPosition().first;
 		int column = aRoom->currentPosition().second;
@@ -68,6 +74,9 @@ namespace textAdventure{
 			--currentColumn;
 			Room* currentRoom = gameBoard[currentRow][currentColumn];
 			enterRoom(currentRoom);
+			pair<int, int> position(currentRow, currentColumn);
+			lastRoom.push(position);
+
 		}
 		else{
 			cout << "You can't go in that direction" << endl;
@@ -75,11 +84,38 @@ namespace textAdventure{
 	}
 
 	void gameMap::navigateRight(){
+		//bool rotate = false;
 		if (currentColumn != 3){
-			++currentColumn;
+			/*if (!movedBack){
+				setCurrentPosition(currentRow, ++currentColumn);
+				Room* currentRoom = gameBoard[currentRow][currentCol]9543   umn];
+				enterRoom(currentRoom);
+				pair<int, int> position(currentRow, currentColumn);
+				lastRoom.push(position);
+			}*/
 			Room* currentRoom = gameBoard[currentRow][currentColumn];
+			if (currentRoom->getRoomName() == "Inside your car " || currentRoom->getRoomName() == "Main Hallway "){
+				rotateNegative90();
+				//rotate = true;
+			}
+			else{
+				++currentColumn;
+				enterRoom(gameBoard[currentRow][currentColumn]);
+				pair<int, int> position(currentRow, currentColumn);
+				lastRoom.push(position);
 
-			enterRoom(currentRoom);
+			}
+
+			cout << "current Row: " << currentRow << " column: " << currentColumn << endl;
+			if (currentRoom->getRoomName() == "Spawn Point4"){ 
+				//cout << "Board after move to spawn point 4\n" << endl; 
+				//cout << "current Row: " << currentRow << " column: " << currentColumn << endl;
+				//printBoard(); 
+			}
+			//if (!rotate){
+				
+			//}
+			//rotate = false;
 		}
 		else{
 			cout << "You can't go in that direction" << endl;
@@ -90,6 +126,9 @@ namespace textAdventure{
 			--currentRow;
 			Room* currentRoom = gameBoard[currentRow][currentColumn];
 			enterRoom(currentRoom);
+			pair<int, int> position(currentRow, currentColumn);
+			lastRoom.push(position);
+
 		}
 		else{
 			cout << "You can't go in that direction" << endl;
@@ -97,9 +136,16 @@ namespace textAdventure{
 	}
 	void gameMap::navigateBackward(){
 		if (currentRow != 3){
-			++currentRow;
+			
+			goBack();
+			
+			/*++currentRow;
 			Room* currentRoom = gameBoard[currentRow][currentColumn];
 			enterRoom(currentRoom);
+			pair<int, int> position(currentRow, currentColumn);
+			lastRoom.push(position);
+*/
+
 		}
 		else{
 			cout << "You can't go in that direction" << endl;
@@ -122,4 +168,129 @@ namespace textAdventure{
 		Room* room = gameBoard[row][col];
 		return room;
 	}
+	void gameMap::printBoard(){
+		for (int i = 0; i<4; ++i){
+			for (int j = 0; j<4; ++j)
+				cout << gameBoard[i][j]->getRoomName() << " ";
+			cout << endl;
+		}
+		cout << endl;
+	}
+	void gameMap::rotateNegative90(){
+		movedBack = false;
+		int n = 4;
+		for (int i = 0; i<n; ++i)
+			for (int j = i + 1; j<n; ++j)
+				swap(gameBoard[i][j], gameBoard[j][i]);
+		swap(currentRow, currentColumn);
+		
+		for (int i = 0; i < n / 2; ++i)
+			for (int j = 0; j < n; ++j)
+				swap(gameBoard[i][j], gameBoard[n - 1 - i][j]);
+				
+		for (int i = 0; i < n; ++i){
+			for (int j = 0; j < n; ++j){
+				if (lastRoom.top().first == 0 && lastRoom.top().second == 0){
+					if (gameBoard[i][j]->getRoomName() == "foyer"){
+						currentRow = i;
+						currentColumn = j;
+					}
+				}
+				else if (lastRoom.top().first == 2 && lastRoom.top().second == 1){
+					if (gameBoard[i][j]->getRoomName() == "Upstairs hallway "){
+						currentRow = i;
+						currentColumn = j;
+					}
+				}
+			}
+		}
+		Room* currentRoom = gameBoard[currentRow][currentColumn];
+		enterRoom(currentRoom);
+
+		
+		pair<int, int> position(currentRow, currentColumn);
+		lastRoom.push(position);
+		/*cout << " final currentRow " << currentRow << "final currentColumn " << currentColumn <<  endl;
+		printBoard();*/
+	}
+
+	void gameMap::rotatePositive90(){
+		int n = 4;
+		for (int i = 0; i<n; ++i)
+			for (int j = i + 1; j < n; ++j){
+				cout << "transpose\n\n\n" << endl;
+				swap(gameBoard[i][j], gameBoard[j][i]);
+				cout << gameBoard[i][j]->getRoomName() << " -> " << gameBoard[j][i]->getRoomName() << "\n" ;
+			}
+		printBoard();
+		//swap(currentRow, currentColumn);
+
+		for (int i = 0; i < n ; ++i){
+			for (int j = 0; j < n/2; ++j){
+				cout << "invert\n\n\n" << endl;
+				/*Room* temp = gameBoard[i][j];
+				gameBoard[i][j] = gameBoard[i][n - 1 - j];
+				gameBoard[i][n - 1 - j] = temp;*/
+				swap(gameBoard[i][n - 1 - j], gameBoard[i][j]);
+				//cout << gameBoard[i][j]->getRoomName() << " -> " << gameBoard[j][n - 1 - j]->getRoomName() << "\n";
+			}
+		}
+		cout << " final matrix\n\n\n\n" << endl;
+		printBoard();
+		for (int i = 0; i < n; ++i){
+			for (int j = 0; j < n; ++j){
+				if (lastRoom.top().first == 0 && lastRoom.top().second == 0){
+					if (gameBoard[i][j]->getRoomName() == "foyer"){
+						currentRow = i;
+						currentColumn = j;
+					}
+				}
+				else if (lastRoom.top().first == 2 && lastRoom.top().second == 2){
+					if (gameBoard[i][j]->getRoomName() == "Upstairs hallway "){
+						int hallwayRow = i;
+						int hallwayColumn = j;
+					}
+				}
+			}
+		}
+		
+		/*pair<int, int> position(currentRow, currentColumn );
+		lastRoom.push(position);
+		*/
+		
+	}
+	void gameMap::goBack(){
+		Room* currentRoom = gameBoard[currentRow][currentColumn];
+		/*if (currentRoom->getRoomName() == "foyer"){
+			cout << "Why are you back in your car? You can't leave yet!" << endl;
+			
+		}*/
+		movedBack = true;
+		lastRoom.pop();
+		
+		if (currentRoom->getRoomName() == "Inside Your Car")return;
+		if (currentRoom->getRoomName() == "foyer" || currentRoom->getRoomName() == "Upstairs hallway "){ 
+			rotatePositive90(); 
+		}
+		currentRow = lastRoom.top().first;
+		currentColumn = lastRoom.top().second;
+		Room* previousRoom = gameBoard[currentRow][currentColumn];
+		enterRoom(previousRoom);
+		printBoard();
+	}
+
+	pair<int, int> gameMap::getCurrentPosition(){
+		pair<int, int> position(currentRow, currentColumn);
+		return position;
+	}
+	/*void transpose(int a[][4], int n){
+		for (int i = 0; i<n; ++i)
+			for (int j = i + 1; j<n; ++j)
+				swap(a[i][j], a[j][i]);
+		printBoard();
+		for (int i = 0; i<n / 2; ++i)
+			for (int j = 0; j<n; ++j)
+				swap(a[i][j], a[n - 1 - i][j]);
+		printMatrix(a);
+	}*/
 }
