@@ -4,41 +4,53 @@
 #include<vector>
 #include<string>
 #include<iostream>
+#include "inventory.h"
 
 using namespace std;
 namespace textAdventure{
+	class inventory;
 	class weapon;
+	class healthPack;
 	class enemy{
 		string enemyName;
 		double battleRatio;
 		int currentHP;
-		int effectivness;
+		//int effectivness;
 		int enemyStrength;
+		weapon* enemyWeapon;
+
 	public:
 		enemy(const string& eName);
 		string getEnemyName();
-		virtual void setLoserStrength(double loserStr);
-		virtual void setWinnerStrength(double battleRatio);
-		virtual double getEnemyStrength();
+		int getEnemyStrength();
+		void setStrength(int battleRatio); 
+		void setHp(int battleRatio);
+		void decreaseHP(int hp);
+		void setWeapon(weapon* aWeapon);
 		bool dead = false;
 
 	};
 	class mainActor{
 		string actorName;
-		double battleRatio = 0;
+		int battleRatio = 0;
 		int currentHP = 100;
-		
-		vector<weapon> Inventory;
+		inventory* inventory;
+		//vector<weapon> Inventory;
 		int effectivness;
 	public:
 		mainActor(const string& nName);
 		string getActorName();
-		virtual void setLoserStrength(double loserStr);
-		virtual void setWinnerStrength(double battleRatio);
-		virtual double getActorStrength();
-		virtual void battle(enemy& nobleOpponent);
+		void setStrength(int battleRatio);
+		void changeHP(int hp);
+		void addHealthPoints(int hp);
+		//void addStrength(int str);
+		int getActorStrength();
+		void addWeapon(weapon* aWeapon);
+		void addHealthPack(healthPack* hp);
+		void displayInventory();
+		void battle(enemy& nobleOpponent);
 		bool dead = false;
-		
+
 	};
 }
 
