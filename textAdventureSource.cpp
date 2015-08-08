@@ -45,9 +45,7 @@ void renderMap(gameMap& map){
 			int roomXdim = stoi(*(roomInfo.begin() + 2));
 			int roomYdim = stoi(*(roomInfo.begin() + 3));
 			Room* roomPtr = new Room(roomName, roomXdim, roomYdim);
-			//don't remember why this is here
-			//roomPtrs.push_back(roomPtr);
-			//Room* eachRoom = *(roomPtrs.begin() + i);
+			
 			roomPtr->setRoomDesc(roomDescription);
 			
 
