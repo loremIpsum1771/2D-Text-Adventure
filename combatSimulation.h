@@ -6,17 +6,15 @@
 #include<map>
 #include <cstdlib>
 #include <ctime>
+#include <windows.h>
 #include "actors.h"
 
-using namespace std;
 namespace textAdventure{
-	int randomGen(int low, int high){
-		srand((int)time(0));
-		int r = (rand() % high) + low;
-		return r;
-		
-	}
-	void firstEnemyCombatSim(enemy* anEnemy, mainActor* user);
+	/*class Weapon;
+	class enemy;*/
+	class mainActor;
+	int randomGen(int low, int high);
+	void enemyCombatSim(enemy* anEnemy, mainActor* user);
 
 
 }
