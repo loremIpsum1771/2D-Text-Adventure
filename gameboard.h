@@ -7,38 +7,56 @@
 #include<utility>
 #include<stack>
 #include "actors.h"
+#include "combatSimulation.h"
+
 using namespace std;
 
 namespace textAdventure{
 	class enemy;
+	class mainActor;
+	
 	class Room{
 		string roomName;
 		string roomDescription;
 		int roomRow;
 		int roomColumn;
 		vector<enemy*> roomEnemies;
+		vector<healthPack*> roomHealthPacks;
+		vector<Weapon*> roomWeapons;
+		//vector<Event*> roomEvents;
 	public:
 		Room(string& rName, int row, int column);
 		string getRoomDesc();
 		string getRoomName();
 		void addRoomEnemy(enemy* anEnemy);
+		string getWeaponNames();
+		vector<healthPack*> getRoomhps();
+		vector<Weapon*> getRoomWeapons();
+		bool existPickups();
+		enemy* getRoomEnemy();
 		void setRoomDesc(string description);
 		pair<int, int> currentPosition();
-		
+		void addRoomHP(healthPack* hp);
+		void addRoomWeapon(Weapon* weapon);
+		//void addEvent(Event* anEvent);
+		void checkEvents();
 
-		
 	};
+
 	class gameMap{
 
 		//vector< vector<Room>> gameBoard;
+		mainActor* user;
 		Room* gameBoard[4][4];
 		int currentRow = 0;
 		int currentColumn = 0;
 		stack<pair<int, int>> lastRoom;
 		bool movedBack = false;
 		vector<pair<string, string>> roomVect;
+		bool bedroomVisited = false;
 	public:
 		gameMap(){}
+		void addGameUser(mainActor* userToAdd);
 		void addRoom(Room* aRoom);
 		void initializeMap();
 		void getNearbyRooms(int row, int column, Room* aRoom);
@@ -57,7 +75,6 @@ namespace textAdventure{
 		Room* roomAtPosition(int row, int column);
 		void goBack();
 		//void setMapSize(int row, int column);
-		
 	};
 
 }
