@@ -4,7 +4,7 @@
 
 * **Storyline**
   * Built to follow a linear plot
-  * Good for mystery games and the like
+  * Good for mystery or small RPG games and the like
   
 * **Map Initialization**
   * Renders Map by parsing specs of each room from a file
@@ -13,19 +13,25 @@
 * **Navigation**
   * Navigation implemented with a 2-D array
   * Matrix can rotate + or - 90 degrees based on user's position in the map to maintain continuity of navigation
+  * Feature for backwards navigation implemented with a stack data structure
   
 * **Player Inventory**
   * Player spawns with an inventory of weapons
   * Weapons and healthpacks can be picked up during the game
-  * Each weapon is created with a different damage value
+  * Each weapon is initialized with a different damage value
   
 * **Combat Simulation** 
   * Dynamic simulation constructed to be re-used wherever a battle occurs in the map
-  * Simple AI primarily based on random chance
+  * Simple AI interaction primarily based on random chance
   * User can either attack or dodge
   * Opponent can divert attacks or dodge and counter
 
 ###Sample use case for the file that is parsed to create the game
+***File Structure***
+* The first 16 lines detail the room information including the room name, description, and x and y coordinates (respectively) with the "|" character as the parsing delimiter
+* Lines 17 and 18 detail the game enemies including enemy name, health, strength and weapon (respectively) with the "$" character as the parsing delimiter.
+* Line 19 details the strength of the healthpack that can be picked upwith the "=" character as the parsing delimiter
+* Line 20 sets the weapon that can be picked up in the game with the "!" character as the parsing delimiter
 ```
 Inside your car |You are inside of your car parked outside of the scene where your person of interest was last seen and you are preparing to go inside.|0|0
 closed room | Room Closed|0|2
