@@ -28,10 +28,10 @@
 
 ###Sample use case for the file that is parsed to create the game
 ***File Structure***
-* The first 16 lines detail the room information including the room name, description, and x and y coordinates (respectively) with the "|" character as the parsing delimiter
-* Lines 17 and 18 detail the game enemies including enemy name, health, strength and weapon (respectively) with the "$" character as the parsing delimiter.
-* Line 19 details the strength of the healthpack that can be picked upwith the "=" character as the parsing delimiter
-* Line 20 sets the weapon that can be picked up in the game with the "!" character as the parsing delimiter
+ * The first 16 lines detail the room information including the room name, description, and x and y coordinates (respectively) with the "|" character as the parsing delimiter
+ * Lines 17 and 18 detail the game enemies including enemy name, health, strength and weapon (respectively) with the "$" character as the parsing delimiter.
+ * Line 19 details the strength of the healthpack that can be picked upwith the "=" character as the parsing delimiter
+ * Line 20 sets the weapon that can be picked up in the game with the "!" character as the parsing delimiter
 ```
 Inside your car |You are inside of your car parked outside of the scene where your person of interest was last seen and you are preparing to go inside.|0|0
 closed room | Room Closed|0|2
