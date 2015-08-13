@@ -272,7 +272,7 @@ namespace textAdventure{
 
 		for (int i = 0; i < n / 2; ++i)
 			for (int j = 0; j < n; ++j)
-				swap(gameBoard[i][j], gameBoard[n - 1 - i][j]);//inverts the rows matrix 
+				swap(gameBoard[i][j], gameBoard[n - 1 - i][j]);//inverts the matrix  rows
 
 		for (int i = 0; i < n; ++i){
 			for (int j = 0; j < n; ++j){
@@ -339,9 +339,6 @@ namespace textAdventure{
 				}
 			}
 		}
-
-
-
 	}
 	void gameMap::goBack(){
 		Room* currentRoom = gameBoard[currentRow][currentColumn];
@@ -367,14 +364,5 @@ namespace textAdventure{
 		pair<int, int> position(currentRow, currentColumn);
 		return position;
 	}
-	/*void transpose(int a[][4], int n){
-	for (int i = 0; i<n; ++i)
-	for (int j = i + 1; j<n; ++j)
-	swap(a[i][j], a[j][i]);
-	printBoard();
-	for (int i = 0; i<n / 2; ++i)
-	for (int j = 0; j<n; ++j)
-	swap(a[i][j], a[n - 1 - i][j]);
-	printMatrix(a);
-	}*/
+	
 }
