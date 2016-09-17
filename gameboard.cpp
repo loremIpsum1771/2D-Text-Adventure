@@ -58,9 +58,7 @@ namespace textAdventure{
 	vector<Weapon*> Room::getRoomWeapons(){
 		return roomWeapons;
 	}
-	//void Room::addEvent(Event* anEvent){
-	//	roomEvents.push_back(anEvent);
-	//}
+	
 
 
 
@@ -111,9 +109,7 @@ namespace textAdventure{
 	void gameMap::enterRoom(Room* aRoom){
 		//cout << "DEBUG:  enterRoom method entered" << endl;
 		cout << "You are now in the " << aRoom->getRoomName()  << " room\n\n" << aRoom->getRoomDesc() <<"\n" << endl;
-		/*for (pair<string, string> eachPair : roomVect){
-			cout << "The room in the " << eachPair.second << " direction is the " << eachPair.first << " room " << endl;
-		}*/
+	
 		getNearbyRooms(currentRow, currentColumn, aRoom);
 		Room* currentRoom = gameBoard[currentRow][currentColumn];
 
@@ -238,13 +234,6 @@ namespace textAdventure{
 		}
 	}
 
-	/*void gameMap::chooseUserDirection(string userInput){
-		if (userInput == "left")navigateLeft();
-		if (userInput == "right")navigateRight();
-		if (userInput == "forward")navigateForward();
-		if (userInput == "back")navigateBackward();
-	}*/
-
 	void gameMap::setCurrentPosition(int curRow, int curColumn){
 		currentRow = curRow;
 		currentColumn = curColumn;
@@ -268,7 +257,7 @@ namespace textAdventure{
 		for (int i = 0; i<n; ++i)
 			for (int j = i + 1; j<n; ++j)
 				swap(gameBoard[i][j], gameBoard[j][i]);//transposes the matrix by switching the rows with the columns and the columns with the rows
-		//swap(currentRow, currentColumn);
+
 
 		for (int i = 0; i < n / 2; ++i)
 			for (int j = 0; j < n; ++j)
@@ -306,23 +295,16 @@ namespace textAdventure{
 				swap(gameBoard[i][j], gameBoard[j][i]); //transposes the matrix
 			
 			}
-		//printBoard();
+
 		
 
 		for (int i = 0; i < n; ++i){
 			for (int j = 0; j < n / 2; ++j){
-				//cout << "invert\n\n\n" << endl;
-				//An alternative to using the swap function
-				/*Room* temp = gameBoard[i][j];
-				gameBoard[i][j] = gameBoard[i][n - 1 - j];
-				gameBoard[i][n - 1 - j] = temp;*/
-
+	
 				swap(gameBoard[i][n - 1 - j], gameBoard[i][j]); //inverts the columns of the matrix
 				
 			}
 		}
-		//cout << " final matrix\n\n\n\n" << endl;
-		//printBoard();
 		for (int i = 0; i < n; ++i){
 			for (int j = 0; j < n; ++j){
 				if (lastRoom.top().first == 0 && lastRoom.top().second == 0){
@@ -342,10 +324,7 @@ namespace textAdventure{
 	}
 	void gameMap::goBack(){
 		Room* currentRoom = gameBoard[currentRow][currentColumn];
-		/*if (currentRoom->getRoomName() == "foyer"){
-		cout << "Why are you back in your car? You can't leave yet!" << endl;
-
-		}*/
+		
 		movedBack = true;
 		lastRoom.pop();
 
