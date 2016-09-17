@@ -27,7 +27,6 @@ void renderMap(gameMap& map){
 	ifstream txtFile("gameSetUp.txt");
 	if (!txtFile) { cerr << "File not found"; return; }
 	string fileLine;
-	//getline(txtFile, fileLine);
 	int i = 0;
 	vector<Room*> roomPtrs;
 	vector<enemy*> enemyPtrs;
