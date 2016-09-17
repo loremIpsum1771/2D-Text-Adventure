@@ -121,14 +121,12 @@ void gameLoop(){
 	renderMap(map);//renders the gameMap and assigns it to the "map" instantiation
 	Weapon* weaponPtr1 = new Weapon("knife");//weapons that the player spawns with
 	Weapon* weaponPtr2 = new Weapon("bat");
-	/*vector<Weapon*> startWeapons;
-	startWeapons.push_back(weaponPtr1);
-	startWeapons.push_back(weaponPtr2);*/
+	
 	inventory* startInventory = new inventory();//inventory that the player spawns with
 	startInventory->addWeapon(weaponPtr1);
 	startInventory->addWeapon(weaponPtr2);
 	mainActor* actorPtr = new mainActor(cName, startInventory);//initiallizes the player
-	//actorPtr->pickUpWeapon(startWeapons);
+	
 	map.addGameUser(actorPtr);//spawns player inside of the map
 
 	map.initializeMap();//sets the users's start positions
@@ -142,7 +140,7 @@ void gameLoop(){
 		}
 		if (userControl == "r"){
 			map.navigateRight();
-			//map.printBoard();
+	
 
 		}
 		if (userControl == "f"){
@@ -152,17 +150,6 @@ void gameLoop(){
 
 			map.navigateBackward();
 		}
-		/*switch (userControl){
-		case 'l':
-			map.navigateLeft();
-		case 'r':
-			map.navigateRight();
-		case 'f':
-			map.navigateForward();
-		case 'b':
-			map.navigateBackward();
-		}*/
-
 		
 	}
 }
