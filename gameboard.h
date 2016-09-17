@@ -23,7 +23,6 @@ namespace textAdventure{
 		vector<enemy*> roomEnemies;
 		vector<healthPack*> roomHealthPacks;
 		vector<Weapon*> roomWeapons;
-		//vector<Event*> roomEvents;
 	public:
 		Room(string& rName, int row, int column);
 		string getRoomDesc();
@@ -38,14 +37,11 @@ namespace textAdventure{
 		pair<int, int> currentPosition();
 		void addRoomHP(healthPack* hp);
 		void addRoomWeapon(Weapon* weapon);
-		//void addEvent(Event* anEvent);
 		void checkEvents();
 
 	};
 
 	class gameMap{
-
-		//vector< vector<Room>> gameBoard;
 		mainActor* user;
 		Room* gameBoard[4][4];
 		int currentRow = 0;
@@ -74,7 +70,6 @@ namespace textAdventure{
 		pair<int, int> getCurrentPosition();
 		Room* roomAtPosition(int row, int column);
 		void goBack();
-		//void setMapSize(int row, int column);
 	};
 
 }
